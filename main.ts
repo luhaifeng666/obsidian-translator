@@ -1,23 +1,28 @@
 import { Plugin, Editor } from "obsidian"
-import { LinkKeeperSettingTab } from './settings'
+import { TranslatorSettingTab } from './settings'
 import { readFile, writeFile } from 'fs/promises'
 import { noticeHandler } from './utils'
-interface LinkKeeperSettings {
-  filepath: string
+
+interface TranslatorSetting {
+	appid: string,
+	secretId: string,
+	from: string,
+	to: string
 }
 
-const DEFAULT_SETTINGS: Partial<LinkKeeperSettings> = {
-	filepath: `${process.env.HOME}/etl.json`
+const DEFAULT_SETTINGS: Partial<TranslatorSetting> = {
+	from: 'auto',
+	to: 'auto'
 }
 
 export default class TranslatorPlugin extends Plugin {
-  settings: LinkKeeperSettings
+  settings: TranslatorSetting
 
   async onload() {
     // load settings
     await this.loadSettings()
     // add setting tab
-    this.addSettingTab(new LinkKeeperSettingTab(this.app, this))
+    this.addSettingTab(new TranslatorSettingTab(this.app, this))
     // add ribbon icon
     this.addRibbonIcon("book", "Translate", () => {
       // @ts-ignore
