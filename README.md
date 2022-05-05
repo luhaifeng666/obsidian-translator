@@ -7,6 +7,11 @@
 
 <p align="center"> This is a plugin for Obsidian to translate (selected) text. </p>
 
+<p align="center">
+
+<img src="https://user-images.githubusercontent.com/9375823/166857732-071a1961-c469-49a9-ac86-2880384dce5c.png" />
+
+</p>
 
 ## Install
 
