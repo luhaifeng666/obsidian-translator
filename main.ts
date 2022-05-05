@@ -1,17 +1,15 @@
 import { Plugin, Editor } from "obsidian"
 import { TranslatorSettingTab } from './settings'
-import { readFile, writeFile } from 'fs/promises'
+import { TranslatorModal } from './modals'
 import { noticeHandler } from './utils'
 
 interface TranslatorSetting {
-	appid: string,
-	secretId: string,
-	from: string,
+	appId: string,
+	secretKey: string,
 	to: string
 }
 
 const DEFAULT_SETTINGS: Partial<TranslatorSetting> = {
-	from: 'auto',
 	to: 'auto'
 }
 
@@ -26,8 +24,23 @@ export default class TranslatorPlugin extends Plugin {
     // add ribbon icon
     this.addRibbonIcon("book", "Translate", () => {
       // @ts-ignore
-      // this.app.commands.executeCommandById('obsidian-link-keeper:list-links')
+      this.app.commands.executeCommandById('obsidian-translator:translate')
     });
+		// add command
+		this.addCommand({
+			id: 'translate',
+			name: 'translate',
+			hotkeys: [{ modifiers: ['Mod'], key: 't' }],
+			editorCallback: (editor, view) => {
+				const { appId, secretKey } = this.settings
+				if (appId && secretKey) {
+					const sel = editor.getSelection()
+					new TranslatorModal(this.app, sel).open()
+				} else {
+					noticeHandler('appId or secretKey can not be empty!')
+				}
+			}
+		})
   }
 
   async loadSettings () {
