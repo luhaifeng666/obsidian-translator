@@ -96,7 +96,7 @@ ${basic['uk-phonetic'] ? `uk: [${basic['uk-phonetic']}]` : ''}
 			})
 		).addButton((btn) =>
 			btn
-				.setButtonText('Search')
+				.setIcon('search')
 				.setCta()
 				.onClick(() => {
 					if (this.text) {
