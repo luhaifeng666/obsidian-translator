@@ -14,15 +14,15 @@
 	color: white;
 }
 
-.setting-item-info {
+.translator_search .setting-item-info {
 	display: none;
 }
 
-.translator_search {
+.translator_search .translator_search {
 	justify-content: flex-start;
 }
 
-.setting-item-control {
+.translator_search .setting-item-control {
 	justify-content: flex-start;
 }
 
