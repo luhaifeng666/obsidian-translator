@@ -51,8 +51,10 @@ export class TranslatorSettingTab extends PluginSettingTab {
 				el.addText((text) =>
 					text
 						.setPlaceholder(name)
+						// @ts-ignore
 						.setValue(this.plugin.settings[name])
 						.onChange(async (value) => {
+							// @ts-ignore
 							this.plugin.settings[name] = value
 							await this.plugin.saveSettings()
 						})
