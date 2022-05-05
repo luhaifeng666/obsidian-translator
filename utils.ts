@@ -4,6 +4,10 @@ const path = require('path')
 const axios = require('axios')
 const jsonpAdapter = require('axios-jsonp')
 
+/**
+ * notice handler
+ * @param msg: notice message
+ */
 const noticeHandler = (msg: string) => new Notice(msg)
 
 function truncate (q: string) {
@@ -12,6 +16,12 @@ function truncate (q: string) {
 	return q.substring(0, 10) + len + q.substring(len - 10, len)
 }
 
+/**
+ * youdao translate handler
+ * @param q: text need translated
+ * @param config: youdao config
+ * @param cb: callback function
+ */
 function handleTranslate (q: string, config: {
 	appId: string,
 	secretKey: string,
