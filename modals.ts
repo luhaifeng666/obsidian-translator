@@ -1,4 +1,4 @@
-import { App, Modal, Setting } from "obsidian"
+import { App, Modal, Setting } from 'obsidian'
 import { noticeHandler, handleTranslate, options } from './utils'
 
 // translator
@@ -29,12 +29,16 @@ export class TranslatorModal extends Modal {
 		const { settings: { to, appId, secretKey } } = this.app.plugins.plugins['obsidian-translator']
 		handleTranslate(this.text, { to: this.customTo || to, appId, secretKey }, (data: any) => {
 			containerEl.removeChild(this.loading)
-			const { query, translation, web, basic, l } = data
+			const { query, translation, web, basic, l, webdict } = data
 			// explain rule
 			const [FROM, TO] = l.split('2')
 
 			// be translated word
-			containerEl.appendChild(createEl('p', { cls: 'translator_container-title', text: query }))
+			containerEl.appendChild(createEl('a', {
+				cls: 'translator_container-title',
+				text: query,
+				href: webdict ? webdict.url : ''
+			}))
 
 			// render explains
 			if (basic) {
