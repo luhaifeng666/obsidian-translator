@@ -22,7 +22,7 @@ export default class TranslatorPlugin extends Plugin {
     // add setting tab
     this.addSettingTab(new TranslatorSettingTab(this.app, this))
     // add ribbon icon
-    this.addRibbonIcon("book", "Translate", () => {
+    this.addRibbonIcon('book', 'Translate', () => {
       // @ts-ignore
       this.app.commands.executeCommandById('obsidian-translator:translate')
     });
@@ -37,7 +37,7 @@ export default class TranslatorPlugin extends Plugin {
 					const sel = editor.getSelection()
 					new TranslatorModal(this.app, sel).open()
 				} else {
-					noticeHandler('appId or secretKey can not be empty!')
+					noticeHandler('AppId or secretKey can not be empty!')
 				}
 			}
 		})

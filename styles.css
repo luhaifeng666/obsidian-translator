@@ -27,9 +27,17 @@
 }
 
 .translator_container {
-	max-height: 300px;
+	height: 300px;
 	overflow-y: scroll;
 	position: relative;
+}
+
+.translator_container-overlay {
+	height: 300px;
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 .translator_container p {
