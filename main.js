@@ -5856,7 +5856,7 @@ function handleTranslate(q, config, cb) {
   const from = "auto";
   axios({
     method: "get",
-    url: "http://openapi.youdao.com/api",
+    url: "https://openapi.youdao.com/api",
     adapter: jsonpAdapter,
     params: { q, appKey: config.appId, salt, from, to: config.to, sign, curtime, signType: "v3" }
   }).then(function(response) {
@@ -6057,8 +6057,7 @@ var TranslatorModal = class extends import_obsidian3.Modal {
         let symbolText = basic.phonetic ? `[${basic.phonetic}]` : "";
         if (FROM === "en" && TO === "zh-CHS") {
           symbolText = `${basic["us-phonetic"] ? `us: [${basic["us-phonetic"]}]` : ""}
-${basic["uk-phonetic"] ? `uk: [${basic["uk-phonetic"]}]` : ""}
-`;
+${basic["uk-phonetic"] ? `uk: [${basic["uk-phonetic"]}]` : ""}`;
         }
         containerEl.appendChild(createEl("p", {
           cls: "translator_container-soundmark",

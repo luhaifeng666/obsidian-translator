@@ -33,8 +33,7 @@ export class TranslatorModal extends Modal {
 				let symbolText = basic.phonetic ? `[${basic.phonetic}]` : ''
 				if (FROM === 'en' && TO === 'zh-CHS') {
 					symbolText = `${basic['us-phonetic'] ? `us: [${basic['us-phonetic']}]` : ''}
-${basic['uk-phonetic'] ? `uk: [${basic['uk-phonetic']}]` : ''}
-`
+${basic['uk-phonetic'] ? `uk: [${basic['uk-phonetic']}]` : ''}`
 				}
 				containerEl.appendChild(createEl('p', {
 					cls: 'translator_container-soundmark',
@@ -88,7 +87,7 @@ ${basic['uk-phonetic'] ? `uk: [${basic['uk-phonetic']}]` : ''}
 		const { contentEl } = this
 
 		contentEl.createEl('h1', { text: 'Translator', cls: 'translator_title' })
-		let containerEl: any
+		let containerEl: HTMLDivElement
 		// search
 		new Setting(contentEl).setClass('translator_search').addText(text =>
 			text.setValue(this.text).setPlaceholder('To be translated').onChange((value) => {

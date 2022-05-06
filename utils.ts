@@ -34,7 +34,7 @@ function handleTranslate (q: string, config: {
 	const from = 'auto'
 	axios({
 		method: 'get',
-		url: 'http://openapi.youdao.com/api',
+		url: 'https://openapi.youdao.com/api',
 		adapter: jsonpAdapter,
 		params: { q, appKey: config.appId, salt, from, to: config.to, sign, curtime, signType: 'v3' }
 	})
