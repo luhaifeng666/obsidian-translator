@@ -6,6 +6,7 @@ export class TranslatorModal extends Modal {
 	text: string
 	customTo: string
 	containerEl: HTMLDivElement
+	loading: HTMLDivElement
 
   constructor (
     app: App,
@@ -13,13 +14,21 @@ export class TranslatorModal extends Modal {
   ) {
     super(app)
 		this.text = text
+		// init loading
+		this.loading = createEl('div', {
+			cls: 'translator_container-overlay',
+			text: 'Translating...'
+		})
   }
 
 	translate (containerEl?: HTMLDivElement) {
 		containerEl.empty()
+		// add overlay mask
+		containerEl.appendChild(this.loading)
 		// @ts-ignore
 		const { settings: { to, appId, secretKey } } = this.app.plugins.plugins['obsidian-translator']
 		handleTranslate(this.text, { to: this.customTo || to, appId, secretKey }, (data: any) => {
+			containerEl.removeChild(this.loading)
 			const { query, translation, web, basic, l } = data
 			// explain rule
 			const [FROM, TO] = l.split('2')
