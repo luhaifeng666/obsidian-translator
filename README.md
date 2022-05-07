@@ -71,15 +71,14 @@ You can config the plugin by following steps.
 - Open **Preferences** in Obsidian.
 - In the side menu, click **Translator**.
 - Set your `appId`, `secretKey`, and the default language that you wanna translate to.
-## Usage
-
-### Settings
 
 <p align="center">
 
 <img src="https://user-images.githubusercontent.com/9375823/167259405-a049160b-bc87-4a7d-bc07-6044ae18082a.png" />
 
 </p>
+
+## Usage
 
 ### Use directly
 
