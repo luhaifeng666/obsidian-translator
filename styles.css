@@ -26,8 +26,24 @@
 	margin-right: 16px;
 }
 
+.translator_container-audioes .setting-item button {
+	padding: 0;
+	border: none;
+	box-shadow: none;
+	cursor: pointer;
+	color: #67C23A;
+}
+
 .translator_container-audioes .setting-item .setting-item-info {
 	margin-right: 6px;
+}
+
+.translator_container-audioes .setting-item .setting-item-info .setting-item-name {
+	font-size: 14px;
+}
+
+.translator_container-audioes .setting-item .setting-item-info .setting-item-description {
+	display: none;
 }
 
 .translator_search .setting-item-info {
