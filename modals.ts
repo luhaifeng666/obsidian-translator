@@ -1,5 +1,9 @@
 import { App, Modal, Setting } from 'obsidian'
-import { noticeHandler, handleTranslate, options } from './utils'
+import { noticeHandler, handleTranslate, options, handleAudio } from './utils'
+
+type SpeakUrls = {
+	[key: string]: string
+}
 
 // translator
 export class TranslatorModal extends Modal {
@@ -26,10 +30,10 @@ export class TranslatorModal extends Modal {
 		// add overlay mask
 		containerEl.appendChild(this.loading)
 		// @ts-ignore
-		const { settings: { to, appId, secretKey } } = this.app.plugins.plugins['obsidian-translator']
+		const { settings: { to, appId, secretKey, audio } } = this.app.plugins.plugins['obsidian-translator']
 		handleTranslate(this.text, { to: this.customTo || to, appId, secretKey }, (data: any) => {
 			containerEl.removeChild(this.loading)
-			const { query, translation, web, basic, l, webdict } = data
+			const { query, translation, web, basic, l, webdict, tSpeakUrl, speakUrl } = data
 			// explain rule
 			const [FROM, TO] = l.split('2')
 
@@ -39,7 +43,34 @@ export class TranslatorModal extends Modal {
 				text: query,
 				href: webdict ? webdict.url : ''
 			}))
-
+			// get audioes
+			const audioesContainer = createEl('div', { cls: 'translator_container-audioes' })
+			if (audio) {
+				const speakUrls: SpeakUrls = {origin: speakUrl, result: tSpeakUrl}
+				Object.keys(speakUrls).forEach((key: string) => {
+					new Setting(audioesContainer)
+						.setName(`${key}:`)
+						.addButton(btn => {
+						btn.setIcon('audio-file')
+							.onClick(() => {
+								// @ts-ignore
+								document.getElementById(key).play()
+							})
+					})
+					handleAudio(speakUrls[key], (res: any) => {
+						audioesContainer.appendChild(createEl('div', {
+							cls: 'translator_container-player'
+						}))
+						audioesContainer.appendChild(createEl('audio', {
+							attr: {
+								src:  URL.createObjectURL(new Blob([res.data], { type: 'audio/mp3' })),
+								id: key
+							}
+						}))
+					})
+				})
+				containerEl.appendChild(audioesContainer)
+			}
 			// render explains
 			if (basic) {
 				// symbol
@@ -53,7 +84,9 @@ ${basic['uk-phonetic'] ? `uk: [${basic['uk-phonetic']}]` : ''}`
 					text: symbolText
 				}))
 				// explains
-				const explains = FROM === 'zh-CHS' && TO === 'en' ? [basic.explains.toString()] : basic.explains
+				const explains = FROM === 'zh-CHS' && TO === 'en'
+					? [...translation, basic.explains.toString()]
+					: basic.explains
 				explains.forEach((exp: string) => {
 					containerEl.appendChild(createEl('p', {
 						cls: 'translator_container-explain',

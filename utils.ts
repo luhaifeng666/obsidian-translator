@@ -46,6 +46,18 @@ function handleTranslate (q: string, config: {
 		})
 }
 
+function handleAudio (url: string, cb: any) {
+	axios({
+		method: 'post',
+		responseType: 'arraybuffer',
+		url
+	}).then((res: any) => {
+		cb(res)
+	}).catch(function (error: { message: string }) {
+		noticeHandler(error.message || 'No results!')
+	})
+}
+
 // language options defination
 const LANGUAGES: { [key: string]: string } = {
 	自动: 'auto',
@@ -172,5 +184,6 @@ const options = Object.keys(LANGUAGES).reduce((obj: object, key: string) => ({
 export {
 	noticeHandler,
 	handleTranslate,
+	handleAudio,
 	options
 }

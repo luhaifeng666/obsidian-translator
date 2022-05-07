@@ -14,15 +14,33 @@
 	color: white;
 }
 
+.translator_container-audioes {
+	display: flex;
+	align-items: center;
+	margin-top: 8px;
+}
+
+.translator_container-audioes .setting-item {
+	padding: 0;
+	border: none;
+	margin-right: 16px;
+}
+
+.translator_container-audioes .setting-item .setting-item-info {
+	margin-right: 6px;
+}
+
 .translator_search .setting-item-info {
 	display: none;
 }
 
-.translator_search .translator_search {
+.translator_search .translator_search,
+.translator_container-audioes .translator_search {
 	justify-content: flex-start;
 }
 
-.translator_search .setting-item-control {
+.translator_search .setting-item-control,
+.translator_container-audioes .setting-item-control {
 	justify-content: flex-start;
 }
 
@@ -49,4 +67,3 @@
 	font-weight: bold;
 	color: #67C23A;
 }
-

@@ -15,6 +15,10 @@ const SETTINGS = [
 		name: 'to',
 		desc: 'Choose which language you wanna translate into.',
 		type: 'select'
+	}, {
+		name: 'audio',
+		desc: 'Whether to enable the audio function?',
+		type: 'toggle'
 	}
 ]
 
@@ -47,28 +51,42 @@ export class TranslatorSettingTab extends PluginSettingTab {
 			const el = new Setting(containerEl)
 				.setName(name)
 				.setDesc(desc)
-			if (type === 'text') {
-				el.addText((text) =>
-					text
-						.setPlaceholder(name)
-						// @ts-ignore
-						.setValue(this.plugin.settings[name])
-						.onChange(async (value) => {
+			switch (type) {
+				case 'text':
+					el.addText((text) =>
+						text
+							.setPlaceholder(name)
 							// @ts-ignore
-							this.plugin.settings[name] = value
+							.setValue(this.plugin.settings[name])
+							.onChange(async (value) => {
+								// @ts-ignore
+								this.plugin.settings[name] = value
+								await this.plugin.saveSettings()
+							})
+					)
+					break
+				case 'select':
+					el.addDropdown(dp =>
+						dp
+							.addOptions(options)
+							.setValue(this.plugin.settings.to)
+							.onChange(async value => {
+								this.plugin.settings.to = value
+								await this.plugin.saveSettings()
+							})
+					)
+					break
+				case 'toggle':
+					el.addToggle(tg => {
+						tg
+							.setValue(this.plugin.settings.audio)
+							.onChange(async val => {
+							this.plugin.settings.audio = val
 							await this.plugin.saveSettings()
 						})
-				)
-			} else {
-				el.addDropdown(dp =>
-					dp
-						.addOptions(options)
-						.setValue(this.plugin.settings.to)
-						.onChange(async value => {
-						this.plugin.settings.to = value
-						await this.plugin.saveSettings()
 					})
-				)
+					break
+				default: break
 			}
 		})
   }

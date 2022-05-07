@@ -6,7 +6,8 @@ import { noticeHandler } from './utils'
 interface TranslatorSetting {
 	appId: string,
 	secretKey: string,
-	to: string
+	to: string,
+	audio: boolean
 }
 
 const DEFAULT_SETTINGS: Partial<TranslatorSetting> = {
