@@ -73,6 +73,14 @@ You can config the plugin by following steps.
 - Set your `appId`, `secretKey`, and the default language that you wanna translate to.
 ## Usage
 
+### Settings
+
+<p align="center">
+
+<img src="https://user-images.githubusercontent.com/9375823/167259405-a049160b-bc87-4a7d-bc07-6044ae18082a.png" />
+
+</p>
+
 ### Use directly
 
 - Click the book icon in the left side menu, or click the command icon in the left side menu and select the command named **Translator: translate** to open the translator modal.
