@@ -78,7 +78,9 @@ export class TranslatorSettingTab extends PluginSettingTab {
 					break
 				case 'toggle':
 					el.addToggle(tg => {
-						tg.onChange(async val => {
+						tg
+							.setValue(this.plugin.settings.audio)
+							.onChange(async val => {
 							this.plugin.settings.audio = val
 							await this.plugin.saveSettings()
 						})
