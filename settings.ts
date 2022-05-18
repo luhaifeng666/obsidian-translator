@@ -9,7 +9,7 @@ const SETTINGS = [
 		type: 'text'
 	}, {
 		name: 'secretKey',
-		desc: 'Please set you secret id.',
+		desc: 'Please set your secret id.',
 		type: 'text'
 	}, {
 		name: 'to',

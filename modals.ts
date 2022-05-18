@@ -73,7 +73,7 @@ export class TranslatorModal extends Modal {
 						}))
 						audioesContainer.appendChild(createEl('audio', {
 							attr: {
-								src:  URL.createObjectURL(new Blob([res.data], { type: 'audio/mp3' })),
+								src:  URL.createObjectURL(new Blob([res.arrayBuffer], { type: 'audio/mp3' })),
 								id: key
 							}
 						}))
