@@ -31,7 +31,6 @@ export default class TranslatorPlugin extends Plugin {
 		this.addCommand({
 			id: 'translate',
 			name: 'translate',
-			hotkeys: [{ modifiers: ['Mod'], key: 't' }],
 			editorCallback: (editor, view) => {
 				const { appId, secretKey } = this.settings
 				if (appId && secretKey) {
