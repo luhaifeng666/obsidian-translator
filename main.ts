@@ -31,12 +31,11 @@ export default class TranslatorPlugin extends Plugin {
 		this.addCommand({
 			id: 'translate',
 			name: 'translate',
-			hotkeys: [{ modifiers: ['Mod'], key: 't' }],
 			editorCallback: (editor, view) => {
 				const { appId, secretKey } = this.settings
 				if (appId && secretKey) {
 					const sel = editor.getSelection()
-					new TranslatorModal(this.app, sel).open()
+					new TranslatorModal(this.app, sel, this.settings).open()
 				} else {
 					noticeHandler('AppId or secretKey can not be empty!')
 				}

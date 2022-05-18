@@ -1,8 +1,9 @@
-import { Notice } from 'obsidian'
-const CryptoJS = require('crypto-js')
+import { Notice, request, requestUrl } from 'obsidian'
 const path = require('path')
-const axios = require('axios')
-const jsonpAdapter = require('axios-jsonp')
+
+interface Params {
+	[key: string]: string | number
+}
 
 /**
  * notice handler
@@ -22,7 +23,7 @@ function truncate (q: string) {
  * @param config: youdao config
  * @param cb: callback function
  */
-function handleTranslate (q: string, config: {
+async function handleTranslate (q: string, config: {
 	appId: string,
 	secretKey: string,
 	to: string
@@ -30,28 +31,27 @@ function handleTranslate (q: string, config: {
 	const salt = new Date().getTime()
 	const curtime = Math.round(new Date().getTime() / 1000)
 	const str1 = config.appId + truncate(q) + salt + curtime + config.secretKey
-	const sign = CryptoJS.SHA256(str1).toString(CryptoJS.enc.Hex)
+	// encode as (utf-8) Uint8Array
+	const hashBuffer = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str1));
+	// hash the message
+	const hashArray = Array.from(new Uint8Array(hashBuffer));                     // convert buffer to byte array
+	const sign = hashArray.map(b => b.toString(16).padStart(2, '0')).join(''); // convert bytes to hex string
 	const from = 'auto'
-	axios({
+	const params: Params = { q, appKey: config.appId, salt, from, to: config.to, sign, curtime, signType: 'v3' }
+	const query = Object.keys(params).map(key => `${key}=${params[key]}`).join('&')
+	request({
 		method: 'get',
-		url: 'https://openapi.youdao.com/api',
-		adapter: jsonpAdapter,
-		params: { q, appKey: config.appId, salt, from, to: config.to, sign, curtime, signType: 'v3' }
+		url: `https://openapi.youdao.com/api?${query}`
+	}).then(function (response: any) {
+		cb(JSON.parse(response || '{}'))
 	})
-		.then(function (response: any) {
-			cb(response.data)
-		})
-		.catch(function (error: { message: string }) {
-			noticeHandler(error.message || 'No results!')
-		})
+	.catch(function (error: { message: string }) {
+		noticeHandler(error.message || 'No results!')
+	})
 }
 
 function handleAudio (url: string, cb: any) {
-	axios({
-		method: 'post',
-		responseType: 'arraybuffer',
-		url
-	}).then((res: any) => {
+	requestUrl({ method: 'post', url }).then((res: any) => {
 		cb(res)
 	}).catch(function (error: { message: string }) {
 		noticeHandler(error.message || 'No results!')
