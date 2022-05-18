@@ -5,16 +5,25 @@ type SpeakUrls = {
 	[key: string]: string
 }
 
+interface TranslatorSetting {
+	appId: string,
+	secretKey: string,
+	to: string,
+	audio: boolean
+}
+
 // translator
 export class TranslatorModal extends Modal {
 	text: string
 	customTo: string
 	containerEl: HTMLDivElement
 	loading: HTMLDivElement
+	settings: TranslatorSetting
 
   constructor (
     app: App,
-		text: string
+		text: string,
+		settings: TranslatorSetting
   ) {
     super(app)
 		this.text = text
@@ -23,14 +32,15 @@ export class TranslatorModal extends Modal {
 			cls: 'translator_container-overlay',
 			text: 'Translating...'
 		})
+		// get settings
+		this.settings = settings
   }
 
 	translate (containerEl: HTMLDivElement) {
 		containerEl.empty()
 		// add overlay mask
 		containerEl.appendChild(this.loading)
-		// @ts-ignore
-		const { settings: { to, appId, secretKey, audio } } = this.app.plugins.plugins['obsidian-translator']
+		const { to, appId, secretKey, audio } = this.settings
 		handleTranslate(this.text, { to: this.customTo || to, appId, secretKey }, (data: any) => {
 			containerEl.removeChild(this.loading)
 			const { query, translation, web, basic, l, webdict, tSpeakUrl, speakUrl } = data
@@ -151,10 +161,7 @@ ${basic['uk-phonetic'] ? `uk: [${basic['uk-phonetic']}]` : ''}`
 					}
 				})
 		).addDropdown(dp =>
-			dp.addOptions(options).setValue(
-				// @ts-ignore
-				this.app.plugins.plugins['obsidian-translator'].settings.to
-			).onChange(value => {
+			dp.addOptions(options).setValue(this.settings.to).onChange(value => {
 				this.customTo = value
 			})
 		)
