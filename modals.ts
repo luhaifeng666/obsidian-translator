@@ -25,7 +25,7 @@ export class TranslatorModal extends Modal {
 		})
   }
 
-	translate (containerEl?: HTMLDivElement) {
+	translate (containerEl: HTMLDivElement) {
 		containerEl.empty()
 		// add overlay mask
 		containerEl.appendChild(this.loading)
