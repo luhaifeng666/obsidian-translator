@@ -1,5 +1,5 @@
 import { App, Modal, Setting } from 'obsidian'
-import { noticeHandler, handleTranslate, options, handleAudio } from './utils'
+import { handleTranslate, options, handleAudio } from './utils'
 
 type SpeakUrls = {
 	[key: string]: string
@@ -119,7 +119,7 @@ ${basic['uk-phonetic'] ? `uk: [${basic['uk-phonetic']}]` : ''}`
 			} else {
 				containerEl.appendChild(createEl('p', {
 					cls: 'translator_container-explain',
-					text: translation.toString()
+					text: translation?.toString()
 				}))
 			}
 			// other
