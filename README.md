@@ -1,7 +1,14 @@
+<!--
+ * @Author: luhaifeng666 youzui@hotmail.com
+ * @Date: 2022-08-09 11:38:39
+ * @LastEditors: luhaifeng666
+ * @LastEditTime: 2022-08-09 11:42:45
+ * @Description: 
+-->
 <h1 align="center"> obsidian-translator </h1>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/obsidian--translator-v0.1.1-yellow">
+  <img src="https://img.shields.io/badge/obsidian--translator-v0.1.2-yellow">
   <img src="https://img.shields.io/badge/node-v14.17.0%2B-green">
 </p>
 
