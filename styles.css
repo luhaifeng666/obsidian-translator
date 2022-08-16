@@ -54,6 +54,7 @@
 	height: 300px;
 	overflow-y: scroll;
 	position: relative;
+  user-select: text;
 }
 
 .translator_container-overlay {
