@@ -73,7 +73,7 @@ async function handleMicrosoftTranslate(q: string, config: {
 	// This is required if using a Cognitive Services resource.
   // TODO: replace with `requestUrl` method
 	axios({
-		url: `${endpoint}/translate?api-version=3.0&from=${from}&to=${to}to&includeAlignment=true&textType=html`,
+		url: `${endpoint}/translate?api-version=3.0&from=${from}&to=${to}&includeAlignment=true&textType=html`,
 		method: 'post',
 		headers: {
 			'Ocp-Apim-Subscription-Key': secretKey,
