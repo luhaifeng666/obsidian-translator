@@ -2,13 +2,13 @@
  * @Author: luhaifeng666 youzui@hotmail.com
  * @Date: 2022-08-09 11:38:39
  * @LastEditors: luhaifeng666
- * @LastEditTime: 2022-08-09 11:42:45
+ * @LastEditTime: 2022-08-17 23:07:30
  * @Description: 
 -->
 <h1 align="center"> obsidian-translator </h1>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/obsidian--translator-v0.1.2-yellow">
+  <img src="https://img.shields.io/badge/obsidian--translator-v0.2.0-yellow">
   <img src="https://img.shields.io/badge/node-v14.17.0%2B-green">
 </p>
 
@@ -45,14 +45,15 @@ You can also set hotkey for the **Translator: translate** command.
 
 You can config the plugin by following steps.
 
-> TIP: Before using this plugin, you need to browse to https://ai.youdao.com/#/ to register first!!
-
 - Open **Preferences** in Obsidian.
 - In the side menu, click **Translator**.
-- Set your `appId`, `secretKey`, and the default language that you wanna translate to.
+- Choose the translation service(s) you wanna use and add configurations.
 
-<p align="center">
-
-<img src="https://user-images.githubusercontent.com/9375823/167259405-a049160b-bc87-4a7d-bc07-6044ae18082a.png" />
-
-</p>
+> PS:
+>
+> This plugin has now supported two translation services: the [Youdao translation service](https://ai.youdao.com/#/) and the [Microsoft translation service](https://docs.microsoft.com/zh-cn/azure/cognitive-services/translator/quickstart-translator?tabs=csharp). You can enable them by setting `Enable` configuration.
+> <p align="center">
+>
+> <img src="https://user-images.githubusercontent.com/9375823/185175027-c024cb36-332e-4524-8454-7e823f642c8f.png" />
+>
+> </p>
