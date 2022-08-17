@@ -55,14 +55,19 @@
 	overflow-y: scroll;
 	position: relative;
   user-select: text;
+  margin-bottom: 10px;
+}
+
+.translator_container-microsoft {
+  height: auto;
 }
 
 .translator_container-overlay {
-	height: 300px;
 	width: 100%;
 	display: flex;
 	align-items: center;
 	justify-content: center;
+  height: 100%;
 }
 
 .translator_container p {
@@ -73,4 +78,11 @@
 	font-size: 16px;
 	font-weight: bold;
 	color: #67C23A;
+}
+
+.translator_container-block-title {
+  font-size: 18px;
+  font-weight: bold;
+  border-bottom: 1px solid var(--background-modifier-border);
+  padding-bottom: 8px;
 }

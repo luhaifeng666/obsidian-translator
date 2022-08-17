@@ -2,20 +2,14 @@
  * @Author: luhaifeng666 youzui@hotmail.com
  * @Date: 2022-08-09 11:38:39
  * @LastEditors: luhaifeng666
- * @LastEditTime: 2022-08-09 11:39:19
+ * @LastEditTime: 2022-08-17 14:48:18
  * @Description: 
  */
 import { Plugin } from "obsidian"
 import { TranslatorSettingTab } from './settings'
 import { TranslatorModal } from './modals'
 import { noticeHandler } from './utils'
-
-interface TranslatorSetting {
-	appId: string,
-	secretKey: string,
-	to: string,
-	audio: boolean
-}
+import { TranslatorSetting } from './interfaces'
 
 const DEFAULT_SETTINGS: Partial<TranslatorSetting> = {
 	to: 'auto'
