@@ -8,7 +8,7 @@
 <h1 align="center"> obsidian-translator </h1>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/obsidian--translator-v0.2.2-yellow">
+  <img src="https://img.shields.io/badge/obsidian--translator-v0.2.3-yellow">
   <img src="https://img.shields.io/badge/node-v14.17.0%2B-green">
 </p>
 

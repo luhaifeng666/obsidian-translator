@@ -35,10 +35,10 @@ export class TranslatorModal extends Modal {
   }
 
   // create title element
-  createBlockTitleElement(containerEl: HTMLDivElement, title: string) {
+  createBlockTitleElement(containerEl: HTMLDivElement, title: string, type: string) {
     containerEl.appendChild(createEl('p', {
       text: title,
-      cls: 'translator_container-block-title'
+      cls: `translator_container-block-title translator_container-block-title-${type}`
     }))
   }
 
@@ -59,7 +59,7 @@ export class TranslatorModal extends Modal {
       { value: secretKey, message: `${preMessage} secretKey ${lastMessage}` }
     ], () => {
       const loadingEl = this.createLoadingElement()
-      this.createBlockTitleElement(containerEl, 'Youdao translation results')
+      this.createBlockTitleElement(containerEl, 'Youdao translation results', 'youdao')
       // add overlay mask
       containerEl.appendChild(loadingEl)
       handleTranslate(this.text, { to: this.customTo || to, appId, secretKey, from }, (data: any) => {
@@ -174,7 +174,7 @@ export class TranslatorModal extends Modal {
       { value: microsoftSecretKey, message: `${preMessage} secret key ${lastMessage}` },
       { value: microsoftLocation, message: `${preMessage} location ${lastMessage}`}
     ], () => {
-      this.createBlockTitleElement(containerEl, 'Microsoft translation results')
+      this.createBlockTitleElement(containerEl, 'Microsoft translation results', 'microsoft')
       // add overlay mask
       containerEl.appendChild(loadingEl)
       handleMicrosoftTranslate(this.text, {
