@@ -80,9 +80,34 @@
 	color: #67C23A;
 }
 
+.translator_container-block-title::before {
+  content: '';
+  display: block;
+  width: 20px;
+  height: 20px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  margin-right: 8px;
+}
+
+.translator_container-block-title-youdao::before {
+  background-image: url(https://user-images.githubusercontent.com/9375823/185375333-c4fcc4d9-2be9-493e-af00-19d16b597a37.svg);
+}
+
+.translator_container-block-title-microsoft::before {
+  background-image: url(https://user-images.githubusercontent.com/9375823/185375071-2d68c762-e583-4886-acc5-051b5a6ea734.svg);
+}
+
+.translator_container-block-title-google::before {
+  background-image: url(https://user-images.githubusercontent.com/9375823/185377760-f6800694-c31d-4025-9610-d3016e3b980b.svg);
+}
+
 .translator_container-block-title {
   font-size: 18px;
   font-weight: bold;
   border-bottom: 1px solid var(--background-modifier-border);
   padding-bottom: 8px;
+  display: flex;
+  align-items: center;
 }
