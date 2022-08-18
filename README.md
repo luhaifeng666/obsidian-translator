@@ -2,13 +2,13 @@
  * @Author: luhaifeng666 youzui@hotmail.com
  * @Date: 2022-08-09 11:38:39
  * @LastEditors: luhaifeng666
- * @LastEditTime: 2022-08-17 23:18:26
+ * @LastEditTime: 2022-08-18 08:38:19
  * @Description: 
 -->
 <h1 align="center"> obsidian-translator </h1>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/obsidian--translator-v0.2.1-yellow">
+  <img src="https://img.shields.io/badge/obsidian--translator-v0.2.2-yellow">
   <img src="https://img.shields.io/badge/node-v14.17.0%2B-green">
 </p>
 
@@ -54,6 +54,6 @@ You can config the plugin by following steps.
 > This plugin has now supported two translation services: the [Youdao translation service](https://ai.youdao.com/#/) and the [Microsoft translation service](https://docs.microsoft.com/zh-cn/azure/cognitive-services/translator/quickstart-translator?tabs=csharp). You can enable them by setting `Enable` configuration.
 > <p align="center">
 >
-> <img src="https://user-images.githubusercontent.com/9375823/185175027-c024cb36-332e-4524-8454-7e823f642c8f.png" />
+> <img src="https://user-images.githubusercontent.com/9375823/185267224-57198989-7359-4c07-8126-1e6aa8dffc66.png" />
 >
 > </p>
