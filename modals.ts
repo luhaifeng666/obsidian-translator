@@ -178,7 +178,7 @@ export class TranslatorModal extends Modal {
       // add overlay mask
       containerEl.appendChild(loadingEl)
       handleMicrosoftTranslate(this.text, {
-        to, from, secretKey: microsoftSecretKey, location: microsoftLocation
+        to: this.customTo || to, from, secretKey: microsoftSecretKey, location: microsoftLocation
       }, (res: string) => {
         containerEl.removeChild(loadingEl)
         const contentObj = {
