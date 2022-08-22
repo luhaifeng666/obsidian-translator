@@ -50,6 +50,12 @@
 	justify-content: flex-start;
 }
 
+.translator_search .setting-item-control input[type="text"] {
+  flex: 1;
+  font-size: 18px;
+  height: 36px;
+}
+
 .translator_container {
 	max-height: 300px;
 	overflow-y: scroll;
@@ -80,6 +86,15 @@
 	color: #67C23A;
 }
 
+.translator_container-block-title {
+  font-size: 18px;
+  font-weight: bold;
+  border-bottom: 1px solid var(--background-modifier-border);
+  padding-bottom: 8px;
+  display: flex;
+  align-items: center;
+}
+
 .translator_container-block-title::before {
   content: '';
   display: block;
@@ -103,11 +118,13 @@
   background-image: url(https://user-images.githubusercontent.com/9375823/185377760-f6800694-c31d-4025-9610-d3016e3b980b.svg);
 }
 
-.translator_container-block-title {
-  font-size: 18px;
-  font-weight: bold;
-  border-bottom: 1px solid var(--background-modifier-border);
-  padding-bottom: 8px;
+.translator_container-block-title-baidu::before {
+  background-image: url(https://user-images.githubusercontent.com/9375823/185876262-b06e39df-6731-4508-a95e-e2c6ae2b5741.svg);
+}
+
+.translator_container-block-title .setting-item {
+  padding: 0;
+  flex: 1;
   display: flex;
-  align-items: center;
+  justify-content: flex-end;
 }

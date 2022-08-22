@@ -2,7 +2,7 @@
  * @Author: luhaifeng666 youzui@hotmail.com
  * @Date: 2022-08-09 11:38:39
  * @LastEditors: luhaifeng666
- * @LastEditTime: 2022-08-17 14:48:18
+ * @LastEditTime: 2022-08-22 19:59:55
  * @Description: 
  */
 import { Plugin } from "obsidian"
@@ -10,10 +10,6 @@ import { TranslatorSettingTab } from './settings'
 import { TranslatorModal } from './modals'
 import { noticeHandler } from './utils'
 import { TranslatorSetting } from './interfaces'
-
-const DEFAULT_SETTINGS: Partial<TranslatorSetting> = {
-	to: 'auto'
-}
 
 export default class TranslatorPlugin extends Plugin {
   settings: TranslatorSetting
@@ -45,10 +41,7 @@ export default class TranslatorPlugin extends Plugin {
   }
 
   async loadSettings () {
-    this.settings = {
-      ...DEFAULT_SETTINGS,
-      ...await this.loadData()
-    }
+    this.settings = await this.loadData()
   }
 
   async saveSettings () {
