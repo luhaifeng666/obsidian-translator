@@ -1,5 +1,17 @@
-import { App, Modal, Setting } from 'obsidian'
-import { handleTranslate, options, handleAudio, isEmptyObject, handleMicrosoftTranslate, validator } from './utils'
+import { App, Modal, Setting } from 'obsidian';
+import {
+  handleTranslate,
+  handleAudio,
+  isEmptyObject,
+  handleMicrosoftTranslate,
+  handleBaiduTranslate,
+  validator,
+  noticeHandler,
+  getLanguageOptions,
+  LANGUAGES,
+  MICROSOFT_LANGUAGES,
+  BAIDU_LANGUAGES
+} from './utils'
 import { TranslatorSetting } from './interfaces'
 
 type SpeakUrls = {
@@ -10,10 +22,28 @@ interface ElementObject {
   [key: string]: HTMLDivElement 
 }
 
+interface serviceTypes {
+  youdao?: string
+  microsoft?: string
+  baidu?: string
+}
+
+interface customToTypes {
+  yTo: string
+  mTo: string
+  bTo: string
+}
+
+const LANGUAGES_MAP = {
+  youdao: { key: 'yTo', languages: LANGUAGES },
+  microsoft: { key: 'mTo', languages: MICROSOFT_LANGUAGES },
+  baidu: { key: 'bTo', languages: BAIDU_LANGUAGES }
+}
+
 // translator
 export class TranslatorModal extends Modal {
 	text: string
-	customTo: string
+	customTo: serviceTypes
 	containerEl: HTMLDivElement
   empty: HTMLDivElement
 	settings: TranslatorSetting
@@ -32,14 +62,32 @@ export class TranslatorModal extends Modal {
     })
 		// get settings
 		this.settings = settings
+    this.customTo = {}
   }
 
   // create title element
   createBlockTitleElement(containerEl: HTMLDivElement, title: string, type: string) {
-    containerEl.appendChild(createEl('p', {
+    const { key, languages } = LANGUAGES_MAP[type as keyof typeof LANGUAGES_MAP]
+    const options = getLanguageOptions(languages)
+    const titleContainer = containerEl.appendChild(createDiv({
       text: title,
       cls: `translator_container-block-title translator_container-block-title-${type}`
     }))
+    new Setting(titleContainer).addDropdown(dp =>
+      dp.addOptions(options).setValue(this.customTo[type as keyof serviceTypes] || this.settings[key as keyof customToTypes]).onChange(value => {
+        this.customTo[type as keyof serviceTypes] = value
+      })
+    )
+  }
+
+  // translate results generator
+  translateResultsGenerator(contentObject: { title: string, explain: string }, container: HTMLDivElement) {
+    Object.keys(contentObject).forEach(key => {
+      container.appendChild(createEl('p', {
+        cls: `translator_container-${key}`,
+        text: contentObject[key as keyof typeof contentObject]
+      }))
+    })
   }
 
   createLoadingElement() {
@@ -51,8 +99,8 @@ export class TranslatorModal extends Modal {
 
   // youdao translate handler
   youdaoTranslateHandler(containerEl: HTMLDivElement) {
-    const { to, from, appId, secretKey, audio } = this.settings
-    const preMessage = `Microsoft translation service's`
+    const { yTo: to, yFrom: from, appId, secretKey, audio } = this.settings
+    const preMessage = `Youdao translation service's`
     const lastMessage = `shouldn't be empty.`
     validator([
       { value: appId, message: `${preMessage} appId ${lastMessage}` },
@@ -62,7 +110,7 @@ export class TranslatorModal extends Modal {
       this.createBlockTitleElement(containerEl, 'Youdao translation results', 'youdao')
       // add overlay mask
       containerEl.appendChild(loadingEl)
-      handleTranslate(this.text, { to: this.customTo || to, appId, secretKey, from }, (data: any) => {
+      handleTranslate(this.text, { to: this.customTo.youdao || to, appId, secretKey, from }, (data: any) => {
         containerEl.removeChild(loadingEl)
         if (isEmptyObject(data)) {
           containerEl.appendChild(this.empty)
@@ -167,7 +215,7 @@ export class TranslatorModal extends Modal {
   // microsoft translate handler
   microsoftTranslateHandler(containerEl: HTMLDivElement) {
     const loadingEl = this.createLoadingElement()
-    const { to, from, microsoftSecretKey, microsoftLocation } = this.settings
+    const { mTo: to, mFrom: from, microsoftSecretKey, microsoftLocation } = this.settings
     const preMessage = `Microsoft translation service's`
     const lastMessage = `shouldn't be empty.`
     validator([
@@ -178,19 +226,49 @@ export class TranslatorModal extends Modal {
       // add overlay mask
       containerEl.appendChild(loadingEl)
       handleMicrosoftTranslate(this.text, {
-        to: this.customTo || to, from, secretKey: microsoftSecretKey, location: microsoftLocation
+        to: this.customTo.microsoft || to, from, secretKey: microsoftSecretKey, location: microsoftLocation
       }, (res: string) => {
         containerEl.removeChild(loadingEl)
         const contentObj = {
           title: this.text,
-          explian: res
+          explain: res
         }
-        Object.keys(contentObj).forEach(key => {
-          containerEl.appendChild(createEl('p', {
-            cls: `translator_container-${key}`,
-            text: contentObj[key as keyof typeof contentObj]
-          }))
-        })
+        this.translateResultsGenerator(contentObj, containerEl)
+      })
+    })
+  }
+
+  // baidu translate handler
+  baiduTranslateHandler(containerEl: HTMLDivElement) {
+    const { bTo: to, bFrom: from, baiduAppId, baiduSecretKey } = this.settings
+    const preMessage = `Baidu translation service's`
+    const lastMessage = `shouldn't be empty.`
+    validator([
+      { value: baiduAppId, message: `${preMessage} appId ${lastMessage}` },
+      { value: baiduSecretKey, message: `${preMessage} secretKey ${lastMessage}` }
+    ], () => {
+      const loadingEl = this.createLoadingElement()
+      this.createBlockTitleElement(containerEl, 'Baidu translation results', 'baidu')
+      // add overlay mask
+      containerEl.appendChild(loadingEl)
+      handleBaiduTranslate(this.text, { to: this.customTo.baidu || to, appId: baiduAppId, secretKey: baiduSecretKey, from }, (res: any) => {
+        if (isEmptyObject(res)) {
+          containerEl.appendChild(this.empty)
+        } else {
+          const { trans_result, error_code } = res
+          if (trans_result) {
+            containerEl.removeChild(loadingEl)
+            const resData = trans_result.map(({ src, dst }: { src: string, dst: string }) => ({
+              title: src,
+              explain: dst
+            }))
+            resData.forEach((contentObj: { title: string, explain: string }) => {
+              this.translateResultsGenerator(contentObj, containerEl)
+            })
+          } else {
+            noticeHandler(`No results! (Code ${error_code})`)
+          }
+        }
       })
     })
   }
@@ -209,6 +287,10 @@ export class TranslatorModal extends Modal {
           this.microsoftTranslateHandler(containerEl)
           break
         }
+        case 'baiduEnable': {
+          this.baiduTranslateHandler(containerEl)
+          break
+        }
         default: break
       }
     })
@@ -219,7 +301,6 @@ export class TranslatorModal extends Modal {
 	onOpen () {
 		const { contentEl, settings } = this
     const enableKeys = Object.keys(settings).filter(key => key.toLowerCase().includes('enable') && settings[key as keyof TranslatorSetting])
-
 		contentEl.createEl('h1', { text: 'Translator', cls: 'translator_title' })
 		// search
 		const setting = new Setting(contentEl).setClass('translator_search').addText(text =>
@@ -241,10 +322,6 @@ export class TranslatorModal extends Modal {
 						Object.values(containerEls).forEach(el => el.empty())
 					}
 				})
-		).addDropdown(dp =>
-			dp.addOptions(options).setValue(this.settings.to).onChange(value => {
-				this.customTo = value
-			})
 		)
 		this.text && this.translate(containerEls)
 	}
