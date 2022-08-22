@@ -1,6 +1,6 @@
 import TranslatorPlugin from './main'
 import { App, PluginSettingTab, Setting } from 'obsidian'
-import { options } from './utils'
+import { getLanguageOptions, LANGUAGES, MICROSOFT_LANGUAGES, BAIDU_LANGUAGES } from './utils'
 import { TranslatorSetting } from './interfaces';
 
 interface Desc {
@@ -26,24 +26,6 @@ interface Block {
 
 
 const SETTING_BLOCKS: Array<Block> = [
-  {
-    title: 'Common Settings',
-    settings: [{
-      name: 'From',
-      desc: 'Choose which language you wanna translate from.',
-      type: 'select',
-      key: 'from',
-      default: 'en',
-      options
-    }, {
-      name: 'To',
-      desc: 'Choose which language you wanna translate into.',
-      type: 'select',
-      key: 'to',
-      default: 'en',
-      options
-    }]
-  },
   {
     title: 'Youdao Translator Settings',
     desc: [
@@ -71,6 +53,20 @@ const SETTING_BLOCKS: Array<Block> = [
         type: 'text',
         key: 'secretKey',
         default: ''
+      }, {
+        name: 'From',
+        desc: 'Choose which language you wanna translate from.',
+        type: 'select',
+        key: 'yFrom',
+        default: 'en',
+        options: getLanguageOptions(LANGUAGES)
+      }, {
+        name: 'To',
+        desc: 'Choose which language you wanna translate into.',
+        type: 'select',
+        key: 'yTo',
+        default: 'en',
+        options: getLanguageOptions(LANGUAGES)
       }, {
         name: 'Audio',
         desc: 'Whether to enable the audio function?',
@@ -110,7 +106,73 @@ const SETTING_BLOCKS: Array<Block> = [
         type: 'text',
         key: 'microsoftLocation',
         default: ''
-      } 
+      }, {
+        name: 'From',
+        desc: 'Choose which language you wanna translate from.',
+        type: 'select',
+        key: 'mFrom',
+        default: 'en',
+        options: getLanguageOptions(MICROSOFT_LANGUAGES)
+      }, {
+        name: 'To',
+        desc: 'Choose which language you wanna translate into.',
+        type: 'select',
+        key: 'mTo',
+        default: 'en',
+        options: getLanguageOptions(MICROSOFT_LANGUAGES)
+      }
+    ]
+  },
+  {
+    title: 'Baidu Translator Settings',
+    desc: [
+      { type: 'text', text: 'Before using this plugin, you need browse to ' },
+      { type: 'href', href: 'http://api.fanyi.baidu.com/', text: 'http://api.fanyi.baidu.com/' },
+      { type: 'text', text: 'to register first!' }
+    ],
+    settings: [
+      {
+        name: 'Enable',
+        desc: 'Enable the baidu translator service.',
+        type: 'toggle',
+        key: 'baiduEnable',
+        default: true
+      },
+      {
+        name: 'AppId',
+        desc: 'Please set your baidu app id.',
+        type: 'text',
+        key: 'baiduAppId',
+        default: ''
+      }, {
+        name: 'SecretKey',
+        desc: 'Please set your baidu secret id.',
+        type: 'text',
+        key: 'baiduSecretKey',
+        default: ''
+      },
+      {
+        name: 'From',
+        desc: 'Choose which language you wanna translate from.',
+        type: 'select',
+        key: 'bFrom',
+        default: 'en',
+        options: getLanguageOptions(BAIDU_LANGUAGES)
+      }, {
+        name: 'To',
+        desc: 'Choose which language you wanna translate into.',
+        type: 'select',
+        key: 'bTo',
+        default: 'en',
+        options: getLanguageOptions(BAIDU_LANGUAGES)
+      }
+      // {
+      //   name: 'Audio',
+      //   desc: 'Whether to enable the audio function?',
+      //   type: 'toggle',
+      //   key: 'audio',
+      //   default: false
+      // }
     ]
   }
 ]
@@ -163,7 +225,7 @@ export class TranslatorSettingTab extends PluginSettingTab {
                 .setPlaceholder(name)
                 .setValue((val || defaultValue) as string)
                 .onChange(async (value) => {
-                  (this.plugin.settings[key as keyof TranslatorSetting] as string) = value
+                  (this.plugin.settings[key as keyof TranslatorSetting] as string) = value.trim()
                   await this.plugin.saveSettings()
                 })
             )
