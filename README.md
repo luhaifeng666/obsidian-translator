@@ -2,7 +2,7 @@
  * @Author: luhaifeng666 youzui@hotmail.com
  * @Date: 2022-08-09 11:38:39
  * @LastEditors: luhaifeng666
- * @LastEditTime: 2022-08-22 22:31:37
+ * @LastEditTime: 2022-08-24 17:46:05
  * @Description: 
 -->
 <h1 align="center"> obsidian-translator </h1>
@@ -51,7 +51,16 @@ You can config the plugin by following steps.
 
 > PS:
 >
-> This plugin has now supported two translation services: the [Youdao translation service](https://ai.youdao.com/#/) and the [Microsoft translation service](https://docs.microsoft.com/zh-cn/azure/cognitive-services/translator/quickstart-translator?tabs=csharp). You can enable them by setting `Enable` configuration.
+> This plugin has now supported three translation services:
+>
+> 1. [Youdao translation service](https://ai.youdao.com/#/)
+>
+> 2. [Microsoft translation service](https://docs.microsoft.com/zh-cn/azure/cognitive-services/translator/quickstart-translator?tabs=csharp)
+>
+> 3. [Baidu translation service](https://fanyi-api.baidu.com/doc/21)
+>
+> You can enable them by setting `Enable` configuration.
+>
 > <p align="center">
 >
 > <img src="https://user-images.githubusercontent.com/9375823/185945758-2359b741-1c8d-4c47-85f0-4f631da4e1aa.png" />

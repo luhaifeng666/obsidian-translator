@@ -1,0 +1,5 @@
+default: true
+
+MD033:
+  # Allowed elements
+  allowed_elements: ['a', 'img', 'div']
