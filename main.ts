@@ -11,6 +11,28 @@ import { TranslatorModal } from './modals'
 import { noticeHandler } from './utils'
 import { TranslatorSetting } from './interfaces'
 
+const DEFAULT_SETTINGSF: TranslatorSetting = {
+   // Youdao Settings
+   youdaoEnable: false,
+   appId: '',
+   secretKey: '',
+   yFrom: '',
+   yTo: '',
+   audio: false,
+   // Microsoft Settings
+   microsoftEnable: false,
+   microsoftSecretKey: '',
+   microsoftLocation: '',
+   mFrom: '',
+   mTo: '',
+   // Baidu Settings
+   baiduEnable: false,
+   baiduSecretKey: '',
+   baiduAppId: '',
+   bFrom: '',
+   bTo: ''
+}
+
 export default class TranslatorPlugin extends Plugin {
   settings: TranslatorSetting
 
@@ -41,7 +63,10 @@ export default class TranslatorPlugin extends Plugin {
   }
 
   async loadSettings () {
-    this.settings = await this.loadData()
+    this.settings = {
+      ...DEFAULT_SETTINGSF,
+      ...(await this.loadData() || {})
+    }
   }
 
   async saveSettings () {
