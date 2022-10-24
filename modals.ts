@@ -43,6 +43,7 @@ const LANGUAGES_MAP = {
 // translator
 export class TranslatorModal extends Modal {
 	text: string
+  prevText: string
 	customTo: serviceTypes
 	containerEl: HTMLDivElement
   empty: HTMLDivElement
@@ -311,18 +312,31 @@ export class TranslatorModal extends Modal {
     const containerEls: ElementObject = enableKeys.reduce((els: ElementObject, key: string) => (
       {...els, [key]: contentEl.createDiv({ cls: `translator_container translator_container-${key.replace('Enable', '')}` })}
     ), {})
+
+    const translatorHandler = ():void => {
+      if (this.text !== this.prevText) {
+        if (this.text) {
+          this.translate(containerEls)
+          this.prevText = this.text
+        } else {
+          Object.values(containerEls).forEach(el => el.empty())
+        }
+      }
+    }
+    
     setting.addButton((btn) =>
 			btn
 				.setIcon('search')
 				.setCta()
-				.onClick(() => {
-					if (this.text) {
-						this.translate(containerEls)
-					} else {
-						Object.values(containerEls).forEach(el => el.empty())
-					}
-				})
+				.onClick(translatorHandler)
 		)
+
+    if (document) {
+      document.onkeydown = event => {
+        event && event.keyCode === 13 && translatorHandler()
+      }
+    }
+    
 		this.text && this.translate(containerEls)
 	}
 
