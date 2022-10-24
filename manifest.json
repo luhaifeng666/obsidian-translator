@@ -1,7 +1,7 @@
 {
 	"id": "obsidian-translator",
 	"name": "Translator",
-	"version": "0.3.3",
+	"version": "0.3.4",
 	"minAppVersion": "0.12.0",
 	"description": "This is a plugin for Obsidian to translate selected text.",
 	"author": "Haifeng Lu",
