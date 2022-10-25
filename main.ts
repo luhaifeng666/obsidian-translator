@@ -2,7 +2,7 @@
  * @Author: luhaifeng666 youzui@hotmail.com
  * @Date: 2022-08-09 11:38:39
  * @LastEditors: luhaifeng666
- * @LastEditTime: 2022-08-22 19:59:55
+ * @LastEditTime: 2022-10-25 17:21:49
  * @Description: 
  */
 import { Plugin } from "obsidian"
@@ -33,6 +33,8 @@ const DEFAULT_SETTINGSF: TranslatorSetting = {
    bTo: ''
 }
 
+type Config = keyof TranslatorSetting
+
 export default class TranslatorPlugin extends Plugin {
   settings: TranslatorSetting
 
@@ -46,18 +48,38 @@ export default class TranslatorPlugin extends Plugin {
       // @ts-ignore
       this.app.commands.executeCommandById('obsidian-translator:translate')
     });
+    // validator
+    const validator = () => {
+      const {
+        youdaoEnable, appId, secretKey, baiduAppId, baiduEnable, baiduSecretKey, microsoftEnable, microsoftLocation, microsoftSecretKey
+      } = this.settings
+      const getKeys = (obj: { [name: string]: string }): string[] => {
+        return Object.keys(obj).filter((key: Config) => !obj[key])
+      }
+      const getRes = (enable: boolean, idOrLocation: string, key: string): boolean => (enable && !!idOrLocation && !!key) || !enable
+      const validateFailedList = [
+        ...(getRes(youdaoEnable, appId, secretKey) ? [] : getKeys({ appId, secretKey })),
+        ...(getRes(baiduEnable, baiduAppId, baiduSecretKey) ? [] : getKeys({ baiduAppId, baiduSecretKey })),
+        ...(getRes(microsoftEnable, microsoftLocation, microsoftSecretKey) ? [] : getKeys({ microsoftLocation, microsoftSecretKey })),
+      ]
+      return validateFailedList
+    }
 		// add command
 		this.addCommand({
 			id: 'translate',
 			name: 'translate',
-			editorCallback: (editor, view) => {
-				const { appId, secretKey } = this.settings
-				if (appId && secretKey) {
-					const sel = editor.getSelection()
-					new TranslatorModal(this.app, sel, this.settings).open()
-				} else {
-					noticeHandler('AppId or secretKey can not be empty!')
-				}
+			editorCallback: editor => {
+        const { settings } = this
+        const enableKeys = Object.keys(settings).filter(key => key.toLowerCase().includes('enable') && settings[key as keyof TranslatorSetting])
+        if (enableKeys.length) {
+          const messages = validator()
+          if (!messages.length) {
+            const sel = editor.getSelection()
+            new TranslatorModal(this.app, sel, settings).open()
+          } else {
+            noticeHandler(`${messages.join(', ')} can not be empty!`)
+          }
+        }
 			}
 		})
   }
@@ -68,7 +90,7 @@ export default class TranslatorPlugin extends Plugin {
       ...(await this.loadData() || {})
     }
   }
-
+  
   async saveSettings () {
     await this.saveData(this.settings)
   }
