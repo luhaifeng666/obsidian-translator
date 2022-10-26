@@ -63,6 +63,7 @@ export class TranslatorModal extends Modal {
     })
 		// get settings
 		this.settings = settings
+    this.text = this.prevText = text
     this.customTo = {}
   }
 
