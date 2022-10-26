@@ -65,7 +65,7 @@ const SETTING_BLOCKS: Array<Block> = [
         desc: 'Choose which language you wanna translate into.',
         type: 'select',
         key: 'yTo',
-        default: 'en',
+        default: 'zh-CHS',
         options: getLanguageOptions(LANGUAGES)
       }, {
         name: 'Audio',
@@ -118,7 +118,7 @@ const SETTING_BLOCKS: Array<Block> = [
         desc: 'Choose which language you wanna translate into.',
         type: 'select',
         key: 'mTo',
-        default: 'en',
+        default: 'zh-Hans',
         options: getLanguageOptions(MICROSOFT_LANGUAGES)
       }
     ]
@@ -163,7 +163,7 @@ const SETTING_BLOCKS: Array<Block> = [
         desc: 'Choose which language you wanna translate into.',
         type: 'select',
         key: 'bTo',
-        default: 'en',
+        default: 'zh',
         options: getLanguageOptions(BAIDU_LANGUAGES)
       }
       // {

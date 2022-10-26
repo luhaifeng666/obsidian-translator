@@ -59,10 +59,11 @@ export class TranslatorModal extends Modal {
 		// get settings
 		this.settings = settings
     this.text = text
-    this.customTo = ['youdao', 'microsoft', 'baidu'].reduce((config, key) => ({
-      ...config,
-      [key]: 'en'
-    }), {})
+    this.customTo = {
+      'youdao': 'zh-CHS',
+      'microsoft': 'zh-Hans',
+      'baidu': 'zh'
+    }
     this.customToPre = {}
   }
 

@@ -116,7 +116,7 @@ async function handleBaiduTranslate(q: string, config: {
   const salt = (new Date).getTime();
   // 多个query可以用\n连接  如 query='apple\norange\nbanana\npear'
   const sign = MD5(`${appId}${q}${salt}${secretKey}`);
-  getRequest(`http://api.fanyi.baidu.com/api/trans/vip/translate?q=${q}&from=${from}&to=${to}&appid=${appId}&salt=${salt}&sign=${sign}`, cb)
+  getRequest(`http://api.fanyi.baidu.com/api/trans/vip/translate?q=${q}&from=${from || 'en'}&to=${to || 'zh'}&appid=${appId}&salt=${salt}&sign=${sign}`, cb)
 }
 
 function handleAudio (url: string, cb: any) {
