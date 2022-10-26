@@ -2,13 +2,13 @@
  * @Author: luhaifeng666 youzui@hotmail.com
  * @Date: 2022-08-09 11:38:39
  * @LastEditors: luhaifeng666
- * @LastEditTime: 2022-10-25 17:23:46
+ * @LastEditTime: 2022-10-26 16:19:31
  * @Description: 
 -->
 <h1 align="center"> obsidian-translator </h1>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/obsidian--translator-v0.3.6-yellow">
+  <img src="https://img.shields.io/badge/obsidian--translator-v0.3.7-yellow">
   <img src="https://img.shields.io/badge/node-v14.17.0%2B-green">
 </p>
 
