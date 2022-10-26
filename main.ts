@@ -2,7 +2,7 @@
  * @Author: luhaifeng666 youzui@hotmail.com
  * @Date: 2022-08-09 11:38:39
  * @LastEditors: luhaifeng666
- * @LastEditTime: 2022-10-25 17:21:49
+ * @LastEditTime: 2022-10-26 17:02:32
  * @Description: 
  */
 import { Plugin } from "obsidian"
@@ -85,9 +85,10 @@ export default class TranslatorPlugin extends Plugin {
   }
 
   async loadSettings () {
+    const settings = await this.loadData() || {}
     this.settings = {
       ...DEFAULT_SETTINGSF,
-      ...(await this.loadData() || {})
+      ...settings
     }
   }
   
