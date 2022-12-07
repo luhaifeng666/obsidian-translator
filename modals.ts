@@ -28,12 +28,6 @@ interface serviceTypes {
   baidu?: string
 }
 
-interface customToTypes {
-  yTo: string
-  mTo: string
-  bTo: string
-}
-
 const LANGUAGES_MAP = {
   youdao: { key: 'yTo', languages: LANGUAGES },
   microsoft: { key: 'mTo', languages: MICROSOFT_LANGUAGES },
@@ -45,6 +39,7 @@ export class TranslatorModal extends Modal {
 	text: string
   prevText: string
 	customTo: serviceTypes
+  customToPre: serviceTypes
 	containerEl: HTMLDivElement
   empty: HTMLDivElement
 	settings: TranslatorSetting
@@ -63,19 +58,25 @@ export class TranslatorModal extends Modal {
     })
 		// get settings
 		this.settings = settings
-    this.customTo = {}
+    this.text = text
+    this.customTo = {
+      'youdao': 'zh-CHS',
+      'microsoft': 'zh-Hans',
+      'baidu': 'zh'
+    }
+    this.customToPre = {}
   }
 
   // create title element
   createBlockTitleElement(containerEl: HTMLDivElement, title: string, type: string) {
-    const { key, languages } = LANGUAGES_MAP[type as keyof typeof LANGUAGES_MAP]
+    const { languages } = LANGUAGES_MAP[type as keyof typeof LANGUAGES_MAP]
     const options = getLanguageOptions(languages)
     const titleContainer = containerEl.appendChild(createDiv({
       text: title,
       cls: `translator_container-block-title translator_container-block-title-${type}`
     }))
     new Setting(titleContainer).addDropdown(dp =>
-      dp.addOptions(options).setValue(this.customTo[type as keyof serviceTypes] || this.settings[key as keyof customToTypes]).onChange(value => {
+      dp.addOptions(options).setValue(this.customTo[type as keyof serviceTypes]).onChange(value => {
         this.customTo[type as keyof serviceTypes] = value
       })
     )
@@ -276,26 +277,31 @@ export class TranslatorModal extends Modal {
 
 	translate (containerEls: ElementObject) {
     Object.keys(containerEls).forEach(key => {
-      const containerEl = containerEls[key]
-      containerEl.empty()
+      const type = key.replace('Enable', '') as keyof serviceTypes
+      if (this.text !== this.prevText || this.customTo[type] !== this.customToPre[type]) {
+        const containerEl = containerEls[key]
+        containerEl.empty()
 
-      switch(key) {
-        case 'youdaoEnable': {
-          this.youdaoTranslateHandler(containerEl)
-          break
+        switch(key) {
+          case 'youdaoEnable': {
+            this.youdaoTranslateHandler(containerEl)
+            break
+          }
+          case 'microsoftEnable': {
+            this.microsoftTranslateHandler(containerEl)
+            break
+          }
+          case 'baiduEnable': {
+            this.baiduTranslateHandler(containerEl)
+            break
+          }
+          default: break
         }
-        case 'microsoftEnable': {
-          this.microsoftTranslateHandler(containerEl)
-          break
-        }
-        case 'baiduEnable': {
-          this.baiduTranslateHandler(containerEl)
-          break
-        }
-        default: break
+
+        this.customToPre[type] = this.customTo[type]
       }
     })
-		
+    this.prevText = this.text
 	}
 
 	// poen modal
@@ -314,13 +320,10 @@ export class TranslatorModal extends Modal {
     ), {})
 
     const translatorHandler = ():void => {
-      if (this.text !== this.prevText) {
-        if (this.text) {
-          this.translate(containerEls)
-          this.prevText = this.text
-        } else {
-          Object.values(containerEls).forEach(el => el.empty())
-        }
+      if (this.text) {
+        this.translate(containerEls)
+      } else {
+        Object.values(containerEls).forEach(el => el.empty())
       }
     }
     
@@ -343,5 +346,6 @@ export class TranslatorModal extends Modal {
 	// close modal
 	onClose () {
     this.contentEl.empty()
+    this.text = this.prevText = ''
 	}
 }
