@@ -1,5 +1,12 @@
 default: true
 
+MD041: false
+
+MD013:
+  line_length: 500
+
+MD025: false
+
 MD033:
   # Allowed elements
-  allowed_elements: ['a', 'img', 'div']
+  allowed_elements: ['h1', 'h2', 'p', 'img', 'a']
