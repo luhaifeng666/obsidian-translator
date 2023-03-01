@@ -2,7 +2,7 @@
  * @Author: luhaifeng666 youzui@hotmail.com
  * @Date: 2022-08-09 11:38:39
  * @LastEditors: luhaifeng666
- * @LastEditTime: 2022-12-07 23:00:10
+ * @LastEditTime: 2023-03-01 10:24:58
  * @Description: 
 -->
 
@@ -66,3 +66,10 @@ You can config the plugin by following steps.
 > <img src="https://user-images.githubusercontent.com/9375823/185945758-2359b741-1c8d-4c47-85f0-4f631da4e1aa.png" />
 >
 > </p>
+>
+
+---
+
+If you find this plugin and workflow useful, you can give me some coffee money!
+
+<a href="https://www.buymeacoffee.com/luhaifeng" target="_blank"><img src="https://user-images.githubusercontent.com/9375823/221101101-69f1b3b6-91e1-4f98-8997-3c2396bf4d54.png" width="150"></a>
