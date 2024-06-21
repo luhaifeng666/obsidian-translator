@@ -79,9 +79,9 @@ export class TranslatorModal extends Modal {
 		new Setting(titleContainer).addDropdown((dp) =>
 			dp
 				.addOptions(options)
-				.setValue(this.customTo[(type as keyof serviceTypes) || "youdao"])
+				.setValue(this.customTo[type as keyof serviceTypes] || "")
 				.onChange((value) => {
-					this.customTo[(type as keyof serviceTypes) || "youdao"] = value;
+					this.customTo[type as keyof serviceTypes] = value;
 				})
 		);
 	}
