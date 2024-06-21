@@ -9,7 +9,7 @@
 <h1 align="center"> obsidian-translator </h1>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/obsidian--translator-v0.3.5-yellow" />
+  <img src="https://img.shields.io/badge/obsidian--translator-v0.3.10-yellow" />
   <img src="https://img.shields.io/badge/node-v14.17.0%2B-green" />
   <img src="https://img.shields.io/badge/dynamic/json?logo=obsidian&color=%2523483699&label=downloads&query=$%5B%22obsidian-translator%22%5D.downloads&url=https://raw.githubusercontent.com/obsidianmd/obsidian-releases/master/community-plugin-stats.json" />
 </p>
