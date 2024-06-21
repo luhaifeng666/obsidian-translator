@@ -242,7 +242,7 @@ export class TranslatorModal extends Modal {
 
   // baidu translate handler
   baiduTranslateHandler(containerEl: HTMLDivElement) {
-    const { bTo: to, bFrom: from, baiduAppId, baiduSecretKey } = this.settings
+    const { bTo: to, bFrom: from, baiduAppId, baiduSecretKey, baiduAudio } = this.settings
     const preMessage = `Baidu translation service's`
     const lastMessage = `shouldn't be empty.`
     validator([
@@ -258,6 +258,7 @@ export class TranslatorModal extends Modal {
           containerEl.appendChild(this.empty)
         } else {
           const { trans_result, error_code } = res
+          console.log(res, '////////////////res/////////////')
           if (trans_result) {
             containerEl.removeChild(loadingEl)
             const resData = trans_result.map(({ src, dst }: { src: string, dst: string }) => ({

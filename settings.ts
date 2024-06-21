@@ -165,14 +165,13 @@ const SETTING_BLOCKS: Array<Block> = [
         key: 'bTo',
         default: 'zh',
         options: getLanguageOptions(BAIDU_LANGUAGES)
+      }, {
+        name: 'Audio',
+        desc: 'Whether to enable the audio function?',
+        type: 'toggle',
+        key: 'audio',
+        default: false
       }
-      // {
-      //   name: 'Audio',
-      //   desc: 'Whether to enable the audio function?',
-      //   type: 'toggle',
-      //   key: 'audio',
-      //   default: false
-      // }
     ]
   }
 ]

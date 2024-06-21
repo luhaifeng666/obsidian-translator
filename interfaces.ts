@@ -25,4 +25,5 @@ export interface TranslatorSetting {
   baiduAppId: string,
   bFrom: string,
 	bTo: string,
+  baiduAudio: boolean
 }
