@@ -11,7 +11,7 @@ import { TranslatorModal } from "./modals";
 import { noticeHandler, cleanMarkup } from "./utils";
 import { TranslatorSetting } from "./interfaces";
 
-const DEFAULT_SETTINGSF: TranslatorSetting = {
+const DEFAULT_SETTINGS: TranslatorSetting = {
 	// Youdao Settings
 	youdaoEnable: false,
 	appId: "",
@@ -36,7 +36,7 @@ const DEFAULT_SETTINGSF: TranslatorSetting = {
 type Config = keyof TranslatorSetting;
 
 export default class TranslatorPlugin extends Plugin {
-	settings: TranslatorSetting;
+	settings: TranslatorSetting = DEFAULT_SETTINGS;
 
 	async onload() {
 		// load settings
@@ -62,7 +62,7 @@ export default class TranslatorPlugin extends Plugin {
 				microsoftSecretKey,
 			} = this.settings;
 			const getKeys = (obj: { [name: string]: string }): string[] => {
-				return Object.keys(obj).filter((key: Config) => !obj[key]);
+				return Object.keys(obj).filter((key: string) => !obj[key]);
 			};
 			const getRes = (
 				enable: boolean,
@@ -111,7 +111,7 @@ export default class TranslatorPlugin extends Plugin {
 	async loadSettings() {
 		const settings = await this.loadData();
 		this.settings = {
-			...DEFAULT_SETTINGSF,
+			...DEFAULT_SETTINGS,
 			...(settings || {}),
 		};
 	}
