@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.3.12](https://github.com/luhaifeng666/obsidian-translator/compare/0.3.11...0.3.12) (2024-06-21)
+
+
+### Bug Fixes
+
+* ts error ([597f633](https://github.com/luhaifeng666/obsidian-translator/commit/597f633e5c5a1be371b2c4198d3899dac99db370))
+
 ### [0.3.11](https://github.com/luhaifeng666/obsidian-translator/compare/0.3.10...0.3.11) (2024-06-21)
 
 

@@ -1,6 +1,6 @@
 {
 	"name": "obsidian-translator",
-	"version": "0.3.11",
+	"version": "0.3.12",
 	"description": "A plugin for obsidian to translate selected text.",
 	"main": "main.js",
 	"type": "module",
