@@ -2777,14 +2777,17 @@ var TranslatorModal = class extends import_obsidian3.Modal {
         containerEl.empty();
         switch (key) {
           case "youdaoEnable": {
+            this.customTo[type] = this.settings.yTo;
             this.youdaoTranslateHandler(containerEl);
             break;
           }
           case "microsoftEnable": {
+            this.customTo[type] = this.settings.mTo;
             this.microsoftTranslateHandler(containerEl);
             break;
           }
           case "baiduEnable": {
+            this.customTo[type] = this.settings.bTo;
             this.baiduTranslateHandler(containerEl);
             break;
           }
