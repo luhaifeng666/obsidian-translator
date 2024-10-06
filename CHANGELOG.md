@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.4.0](https://github.com/luhaifeng666/obsidian-translator/compare/0.3.12...0.4.0) (2024-10-06)
+
+
+### Features
+
+* set default language type ([02d2249](https://github.com/luhaifeng666/obsidian-translator/commit/02d224951712ebdedf91a43c2b36549ecd5e6116))
+
 ### [0.3.12](https://github.com/luhaifeng666/obsidian-translator/compare/0.3.11...0.3.12) (2024-06-21)
 
 
