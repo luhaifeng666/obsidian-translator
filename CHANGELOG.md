@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.4.1](https://github.com/luhaifeng666/obsidian-translator/compare/0.4.0...0.4.1) (2024-10-06)
+
 ## [0.4.0](https://github.com/luhaifeng666/obsidian-translator/compare/0.3.12...0.4.0) (2024-10-06)
 
 
